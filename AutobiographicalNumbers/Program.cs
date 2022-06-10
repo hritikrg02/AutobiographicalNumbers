@@ -43,7 +43,21 @@ public class NumberGenerator {
     }
 
     private bool DictionaryIsEqual(Dictionary<int, int> d1, Dictionary<int, int> d2) {
-        return false;
+        if (d1.Count != d2.Count) {
+            return false;
+        }
+
+        foreach (var (key1, value1) in d1) {
+            if (!d2.TryGetValue(key1, out var value2)) { // key is not present
+                return false;
+            }
+
+            if (value2 != value1) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
