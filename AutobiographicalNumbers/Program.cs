@@ -10,7 +10,7 @@ public class NumberGenerator {
         var theoryMap = CreateTheoryMap(numAsCharArray);
         var actualMap = CreateActualMap(numAsCharArray);
 
-        return false;
+        return DictionaryIsEqual(theoryMap, actualMap);
     }
 
     private Dictionary<int, int> CreateTheoryMap(char[] numAsCharArray) {
@@ -40,6 +40,10 @@ public class NumberGenerator {
         }
         
         return actualMap;
+    }
+
+    private bool DictionaryIsEqual(Dictionary<int, int> d1, Dictionary<int, int> d2) {
+        return false;
     }
 
 }
