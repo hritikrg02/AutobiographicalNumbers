@@ -1,7 +1,7 @@
 ﻿namespace AutobiographicalNumbers;
 
 public static class NumberGenerator {
-    private static bool IsAutobiographical (this long num) {
+    private static bool IsAutobiographical (this ulong num) {
         var numAsCharArray = num
             .ToString()
             .ToCharArray();
@@ -65,9 +65,9 @@ public static class NumberGenerator {
     }
 
     public static void Main(string[] args) {
-        var upper = long.Parse(args[0]);
+        var upper = ulong.Parse(args[0]);
 
-        for (long i = 0; i <= upper; i++) {
+        for (ulong i = 0; i <= upper; i++) {
             if (i.IsAutobiographical()) {
                 Console.WriteLine(i);
             }
