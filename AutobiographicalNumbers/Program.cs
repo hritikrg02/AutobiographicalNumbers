@@ -1,7 +1,7 @@
 ﻿namespace AutobiographicalNumbers;
 
-public class NumberGenerator {
-    private bool CheckAutobiographical (int num) {
+public static class NumberGenerator {
+    private static bool IsAutobiographical (this long num) {
         var numAsCharArray = num
             .ToString()
             .ToCharArray();
@@ -13,7 +13,7 @@ public class NumberGenerator {
         return DictionaryIsEqual(theoryMap, actualMap);
     }
 
-    private Dictionary<int, int> CreateTheoryMap(char[] numAsCharArray) {
+    private static Dictionary<int, int> CreateTheoryMap(char[] numAsCharArray) {
         var theoryMap = new Dictionary<int, int>();
         var digit = 0;
         
@@ -25,24 +25,28 @@ public class NumberGenerator {
 
         return theoryMap;
     }
-
-    private Dictionary<int, int> CreateActualMap(char[] numAsCharArray) {
+    
+    
+    private static Dictionary<int, int> CreateActualMap(char[] numAsCharArray) {
         var actualMap = new Dictionary<int, int>();
 
-        foreach (var ch in numAsCharArray) {
-            var digit = int.Parse(ch.ToString());
-            if (!actualMap.ContainsKey(digit)) {
-                actualMap.Add(digit, 1);
-                continue;
-            }
+        for (var i = 0; i < numAsCharArray.Length; i++) {
+            actualMap.Add(i, 0);
+        }
 
-            actualMap[digit] += 1;
+        foreach (var ch in numAsCharArray) {
+            try {
+                var digit = int.Parse(ch.ToString());
+                actualMap[digit] += 1;
+            } catch (KeyNotFoundException) {
+                return actualMap;
+            }
         }
         
         return actualMap;
     }
 
-    private bool DictionaryIsEqual(Dictionary<int, int> d1, Dictionary<int, int> d2) {
+    private static bool DictionaryIsEqual(Dictionary<int, int> d1, Dictionary<int, int> d2) {
         if (d1.Count != d2.Count) {
             return false;
         }
@@ -60,4 +64,13 @@ public class NumberGenerator {
         return true;
     }
 
+    public static void Main(string[] args) {
+        var upper = long.Parse(args[0]);
+
+        for (long i = 0; i <= upper; i++) {
+            if (i.IsAutobiographical()) {
+                Console.WriteLine(i);
+            }
+        }
+    }
 }
